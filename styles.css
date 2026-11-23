@@ -1,0 +1,83 @@
+:root {
+  --green-900: #173d2d;
+  --green-700: #2f7052;
+  --green-600: #3d8061;
+  --green-100: #edf5ef;
+  --cream: #fbfaf6;
+  --line: #dde5df;
+  --text: #1d2922;
+  --muted: #6d7871;
+  --gold: #c6a84a;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Inter, "Segoe UI", system-ui, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(67, 128, 97, .10), transparent 24rem),
+    var(--cream);
+}
+.shell { max-width: 1180px; margin: 0 auto; padding: 28px 32px 56px; }
+.topbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; }
+.brand { display:flex; align-items:center; gap:12px; font-family:Georgia, serif; font-size:21px; font-weight:700; color:var(--green-900); }
+.brand-mark { width:42px; height:42px; border-radius:50%; display:grid; place-items:center; background:var(--green-900); color:white; font-size:22px; }
+.secure { color:var(--muted); font-size:13px; display:flex; align-items:center; gap:7px; }
+.layout { display:grid; grid-template-columns:minmax(0, 1.55fr) minmax(300px, .75fr); gap:28px; align-items:start; }
+.card { background:rgba(255,255,255,.92); border:1px solid var(--line); border-radius:18px; box-shadow:0 12px 36px rgba(32,62,46,.06); }
+.form-card { padding:26px; }
+.estate-card { position:sticky; top:20px; padding:22px; }
+.section { border:0; margin:0 0 24px; padding:0 0 22px; border-bottom:1px solid var(--line); }
+.section:last-child { border-bottom:0; margin-bottom:0; }
+.section-title { display:flex; align-items:center; gap:9px; margin:0 0 16px; font-size:15px; font-weight:800; color:var(--green-900); }
+.step { width:24px; height:24px; border-radius:50%; background:var(--green-100); display:grid; place-items:center; font-size:12px; }
+.estate-input { position:relative; }
+.estate-input span { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--green-700); font-weight:700; }
+.estate-input input { width:100%; height:52px; border:1px solid var(--line); border-radius:11px; padding:0 14px 0 54px; font-size:18px; font-weight:700; color:var(--green-900); background:#fff; }
+.estate-input input:focus, .count-input:focus { outline:3px solid rgba(61,128,97,.12); border-color:var(--green-600); }
+.heir-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.heir-row { min-height:66px; display:flex; align-items:center; gap:10px; border:1px solid var(--line); border-radius:12px; padding:9px 10px; background:white; }
+.avatar { flex:0 0 auto; width:42px; height:42px; border-radius:50%; display:grid; place-items:center; }
+.avatar.male { background:#eaf2ed; color:#35674d; }
+.avatar.female { background:#f4eee3; color:#9a7b3a; }
+.avatar svg { width:25px; height:25px; }
+.heir-info { min-width:0; flex:1; }
+.heir-name { display:block; font-size:13px; font-weight:800; line-height:1.2; }
+.heir-sub { display:block; font-size:10.5px; color:var(--muted); margin-top:3px; }
+.count-input { width:48px; height:38px; border:1px solid var(--line); border-radius:9px; text-align:center; font-weight:800; color:var(--green-900); background:#fbfdfc; }
+.calculate { width:100%; height:50px; border:0; border-radius:11px; background:var(--green-900); color:white; font-weight:800; cursor:pointer; box-shadow:0 8px 18px rgba(23,61,45,.16); }
+.calculate:hover { background:#215641; }
+.estate-head { display:flex; justify-content:space-between; align-items:start; margin-bottom:16px; }
+.estate-head h2 { margin:0; font-family:Georgia,serif; font-size:20px; color:var(--green-900); }
+.estate-head span { color:var(--muted); font-size:11px; }
+.total-estate { padding:14px 16px; border-radius:12px; background:var(--green-100); margin-bottom:14px; }
+.total-estate small { display:block; color:var(--muted); font-size:11px; }
+.total-estate strong { display:block; margin-top:4px; color:var(--green-900); font-size:20px; }
+.empty { text-align:center; padding:38px 10px 30px; color:var(--muted); }
+.empty-icon { width:58px; height:58px; margin:0 auto 12px; border-radius:50%; display:grid; place-items:center; background:var(--green-100); color:var(--green-700); font-size:26px; }
+.result-list { display:flex; flex-direction:column; gap:9px; }
+.result-row { display:grid; grid-template-columns:1fr auto; gap:8px; border-bottom:1px dashed var(--line); padding:11px 2px; }
+.result-row:last-child { border-bottom:0; }
+.result-name { font-size:13px; font-weight:800; }
+.result-basis { margin-top:3px; font-size:10.5px; color:var(--muted); }
+.result-value { text-align:right; }
+.result-value strong { display:block; font-size:13px; color:var(--green-900); }
+.result-value span { font-size:10.5px; color:var(--muted); }
+.bar { height:5px; border-radius:10px; background:#edf1ee; margin-top:7px; overflow:hidden; }
+.bar i { display:block; height:100%; border-radius:10px; background:var(--green-600); }
+.notice { margin-top:14px; padding:11px 12px; border-radius:10px; background:#fff8e7; color:#7b6529; font-size:10.5px; line-height:1.5; }
+.aural { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+
+@media (max-width: 850px) {
+  .shell { padding:20px 16px 40px; }
+  .layout { grid-template-columns:1fr; }
+  .estate-card { position:static; }
+}
+@media (max-width: 560px) {
+  .heir-grid { grid-template-columns:1fr; }
+  .secure { display:none; }
+  .topbar { margin-bottom:16px; }
+  .form-card { padding:18px 14px; }
+}
