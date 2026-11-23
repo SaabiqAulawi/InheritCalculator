@@ -3,13 +3,264 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ecf5ee" />
-    <meta name="description" content="Kalkulator pembagian warisan Islam" />
-    <title>Kalkulator Warisan</title>
+    <meta name="theme-color" content="#173d2d" />
+    <meta name="description" content="Kalkulator pembagian warisan Islam berdasarkan kaidah faraidh jumhur ulama" />
+    <title>Kalkulator Waris Islam</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <div id="app"></div>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <h1 class="brand-title">Kalkulator Waris Islam</h1>
+          <p class="brand-desc">Penghitungan pembagian waris menurut ketentuan faraidh</p>
+        </div>
+        <div class="topbar-meta">Kaidah Jumhur Ulama Faraidh</div>
+      </header>
+
+      <div class="layout">
+        <section class="card form-card" aria-label="Formulir ahli waris">
+          <fieldset class="section">
+            <legend class="section-title"><span class="step-num">1</span> Jenis Kelamin Pewaris</legend>
+            <p class="field-help">Pilih status almarhum/almarhumah yang meninggalkan harta</p>
+            <div class="deceased-select">
+              <label class="radio-btn active" id="label-male">
+                <input type="radio" name="deceasedGender" value="male" checked />
+                <span>Laki-laki (Almarhum)</span>
+              </label>
+              <label class="radio-btn" id="label-female">
+                <input type="radio" name="deceasedGender" value="female" />
+                <span>Perempuan (Almarhumah)</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="section">
+            <legend class="section-title"><span class="step-num">2</span> Nilai Bersih Harta Warisan</legend>
+            <p class="field-help">Harta bersih setelah pelunasan utang, biaya pemakaman, dan wasiat</p>
+            <label class="estate-input-box" for="estate">
+              <span class="estate-input-prefix">Rp</span>
+              <input id="estate" class="estate-input" type="text" inputmode="numeric" value="100.000.000" aria-label="Nilai bersih harta warisan" />
+            </label>
+          </fieldset>
+
+          <fieldset class="section">
+            <legend class="section-title"><span class="step-num">3</span> Jumlah Ahli Waris yang Masih Hidup</legend>
+            <p class="field-help">Tentukan jumlah orang untuk setiap kelompok ahli waris</p>
+            <div class="heir-grid" id="heir-grid">
+              <div class="heir-row disabled" id="row-husband">
+                <div class="heir-info">
+                  <span class="heir-name">Suami</span>
+                  <span class="heir-sub">Maks. 1 orang</span>
+                </div>
+                <div class="stepper">
+                  <button type="button" class="stepper-btn" data-step="-1" data-target="husband" aria-label="Kurangi Suami">−</button>
+                  <input class="count-input" id="husband" data-heir="husband" type="number" min="0" max="1" value="0" aria-label="Jumlah Suami" />
+                  <button type="button" class="stepper-btn" data-step="1" data-target="husband" aria-label="Tambah Suami">+</button>
+                </div>
+              </div>
+
+              <div class="heir-row" id="row-wife">
+                <div class="heir-info">
+                  <span class="heir-name">Istri</span>
+                  <span class="heir-sub">Maks. 4 orang</span>
+                </div>
+                <div class="stepper">
+                  <button type="button" class="stepper-btn" data-step="-1" data-target="wife" aria-label="Kurangi Istri">−</button>
+                  <input class="count-input" id="wife" data-heir="wife" type="number" min="0" max="4" value="0" aria-label="Jumlah Istri" />
+                  <button type="button" class="stepper-btn" data-step="1" data-target="wife" aria-label="Tambah Istri">+</button>
+                </div>
+              </div>
+
+              <div class="heir-row" id="row-son">
+                <div class="heir-info">
+                  <span class="heir-name">Anak Laki-laki</span>
+                  <span class="heir-sub">Keturunan langsung</span>
+                </div>
+                <div class="stepper">
+                  <button type="button" class="stepper-btn" data-step="-1" data-target="son" aria-label="Kurangi Anak Laki-laki">−</button>
+                  <input class="count-input" id="son" data-heir="son" type="number" min="0" max="20" value="0" aria-label="Jumlah Anak Laki-laki" />
+                  <button type="button" class="stepper-btn" data-step="1" data-target="son" aria-label="Tambah Anak Laki-laki">+</button>
+                </div>
+              </div>
+
+              <div class="heir-row" id="row-daughter">
+                <div class="heir-info">
+                  <span class="heir-name">Anak Perempuan</span>
+                  <span class="heir-sub">Keturunan langsung</span>
+                </div>
+                <div class="stepper">
+                  <button type="button" class="stepper-btn" data-step="-1" data-target="daughter" aria-label="Kurangi Anak Perempuan">−</button>
+                  <input class="count-input" id="daughter" data-heir="daughter" type="number" min="0" max="20" value="0" aria-label="Jumlah Anak Perempuan" />
+                  <button type="button" class="stepper-btn" data-step="1" data-target="daughter" aria-label="Tambah Anak Perempuan">+</button>
+                </div>
+              </div>
+
+              <div class="heir-row" id="row-father">
+                <div class="heir-info">
+                  <span class="heir-name">Ayah</span>
+                  <span class="heir-sub">Orang tua kandung</span>
+                </div>
+                <div class="stepper">
+                  <button type="button" class="stepper-btn" data-step="-1" data-target="father" aria-label="Kurangi Ayah">−</button>
+                  <input class="count-input" id="father" data-heir="father" type="number" min="0" max="1" value="0" aria-label="Jumlah Ayah" />
+                  <button type="button" class="stepper-btn" data-step="1" data-target="father" aria-label="Tambah Ayah">+</button>
+                </div>
+              </div>
+
+              <div class="heir-row" id="row-mother">
+                <div class="heir-info">
+                  <span class="heir-name">Ibu</span>
+                  <span class="heir-sub">Orang tua kandung</span>
+                </div>
+                <div class="stepper">
+                  <button type="button" class="stepper-btn" data-step="-1" data-target="mother" aria-label="Kurangi Ibu">−</button>
+                  <input class="count-input" id="mother" data-heir="mother" type="number" min="0" max="1" value="0" aria-label="Jumlah Ibu" />
+                  <button type="button" class="stepper-btn" data-step="1" data-target="mother" aria-label="Tambah Ibu">+</button>
+                </div>
+              </div>
+
+              <div class="heir-row" id="row-grandfather">
+                <div class="heir-info">
+                  <span class="heir-name">Kakek</span>
+                  <span class="heir-sub">Ayah dari ayah</span>
+                </div>
+                <div class="stepper">
+                  <button type="button" class="stepper-btn" data-step="-1" data-target="grandfather" aria-label="Kurangi Kakek">−</button>
+                  <input class="count-input" id="grandfather" data-heir="grandfather" type="number" min="0" max="1" value="0" aria-label="Jumlah Kakek" />
+                  <button type="button" class="stepper-btn" data-step="1" data-target="grandfather" aria-label="Tambah Kakek">+</button>
+                </div>
+              </div>
+
+              <div class="heir-row" id="row-grandmother">
+                <div class="heir-info">
+                  <span class="heir-name">Nenek</span>
+                  <span class="heir-sub">Ibu dari ayah / ibu</span>
+                </div>
+                <div class="stepper">
+                  <button type="button" class="stepper-btn" data-step="-1" data-target="grandmother" aria-label="Kurangi Nenek">−</button>
+                  <input class="count-input" id="grandmother" data-heir="grandmother" type="number" min="0" max="2" value="0" aria-label="Jumlah Nenek" />
+                  <button type="button" class="stepper-btn" data-step="1" data-target="grandmother" aria-label="Tambah Nenek">+</button>
+                </div>
+              </div>
+
+              <div class="heir-row" id="row-grandson">
+                <div class="heir-info">
+                  <span class="heir-name">Cucu Laki-laki</span>
+                  <span class="heir-sub">Dari anak laki-laki</span>
+                </div>
+                <div class="stepper">
+                  <button type="button" class="stepper-btn" data-step="-1" data-target="grandson" aria-label="Kurangi Cucu Laki-laki">−</button>
+                  <input class="count-input" id="grandson" data-heir="grandson" type="number" min="0" max="20" value="0" aria-label="Jumlah Cucu Laki-laki" />
+                  <button type="button" class="stepper-btn" data-step="1" data-target="grandson" aria-label="Tambah Cucu Laki-laki">+</button>
+                </div>
+              </div>
+
+              <div class="heir-row" id="row-granddaughter">
+                <div class="heir-info">
+                  <span class="heir-name">Cucu Perempuan</span>
+                  <span class="heir-sub">Dari anak laki-laki</span>
+                </div>
+                <div class="stepper">
+                  <button type="button" class="stepper-btn" data-step="-1" data-target="granddaughter" aria-label="Kurangi Cucu Perempuan">−</button>
+                  <input class="count-input" id="granddaughter" data-heir="granddaughter" type="number" min="0" max="20" value="0" aria-label="Jumlah Cucu Perempuan" />
+                  <button type="button" class="stepper-btn" data-step="1" data-target="granddaughter" aria-label="Tambah Cucu Perempuan">+</button>
+                </div>
+              </div>
+
+              <div class="heir-row" id="row-fullBrother">
+                <div class="heir-info">
+                  <span class="heir-name">Saudara Laki-laki Kandung</span>
+                  <span class="heir-sub">Sebapak dan seibu</span>
+                </div>
+                <div class="stepper">
+                  <button type="button" class="stepper-btn" data-step="-1" data-target="fullBrother" aria-label="Kurangi Saudara Laki-laki Kandung">−</button>
+                  <input class="count-input" id="fullBrother" data-heir="fullBrother" type="number" min="0" max="20" value="0" aria-label="Jumlah Saudara Laki-laki Kandung" />
+                  <button type="button" class="stepper-btn" data-step="1" data-target="fullBrother" aria-label="Tambah Saudara Laki-laki Kandung">+</button>
+                </div>
+              </div>
+
+              <div class="heir-row" id="row-fullSister">
+                <div class="heir-info">
+                  <span class="heir-name">Saudara Perempuan Kandung</span>
+                  <span class="heir-sub">Sebapak dan seibu</span>
+                </div>
+                <div class="stepper">
+                  <button type="button" class="stepper-btn" data-step="-1" data-target="fullSister" aria-label="Kurangi Saudara Perempuan Kandung">−</button>
+                  <input class="count-input" id="fullSister" data-heir="fullSister" type="number" min="0" max="20" value="0" aria-label="Jumlah Saudara Perempuan Kandung" />
+                  <button type="button" class="stepper-btn" data-step="1" data-target="fullSister" aria-label="Tambah Saudara Perempuan Kandung">+</button>
+                </div>
+              </div>
+
+              <div class="heir-row" id="row-paternalBrother">
+                <div class="heir-info">
+                  <span class="heir-name">Saudara Laki-laki Seayah</span>
+                  <span class="heir-sub">Sebapak beda ibu</span>
+                </div>
+                <div class="stepper">
+                  <button type="button" class="stepper-btn" data-step="-1" data-target="paternalBrother" aria-label="Kurangi Saudara Laki-laki Seayah">−</button>
+                  <input class="count-input" id="paternalBrother" data-heir="paternalBrother" type="number" min="0" max="20" value="0" aria-label="Jumlah Saudara Laki-laki Seayah" />
+                  <button type="button" class="stepper-btn" data-step="1" data-target="paternalBrother" aria-label="Tambah Saudara Laki-laki Seayah">+</button>
+                </div>
+              </div>
+
+              <div class="heir-row" id="row-paternalSister">
+                <div class="heir-info">
+                  <span class="heir-name">Saudara Perempuan Seayah</span>
+                  <span class="heir-sub">Sebapak beda ibu</span>
+                </div>
+                <div class="stepper">
+                  <button type="button" class="stepper-btn" data-step="-1" data-target="paternalSister" aria-label="Kurangi Saudara Perempuan Seayah">−</button>
+                  <input class="count-input" id="paternalSister" data-heir="paternalSister" type="number" min="0" max="20" value="0" aria-label="Jumlah Saudara Perempuan Seayah" />
+                  <button type="button" class="stepper-btn" data-step="1" data-target="paternalSister" aria-label="Tambah Saudara Perempuan Seayah">+</button>
+                </div>
+              </div>
+
+              <div class="heir-row" id="row-maternalSibling">
+                <div class="heir-info">
+                  <span class="heir-name">Saudara Seibu</span>
+                  <span class="heir-sub">Laki-laki atau perempuan</span>
+                </div>
+                <div class="stepper">
+                  <button type="button" class="stepper-btn" data-step="-1" data-target="maternalSibling" aria-label="Kurangi Saudara Seibu">−</button>
+                  <input class="count-input" id="maternalSibling" data-heir="maternalSibling" type="number" min="0" max="20" value="0" aria-label="Jumlah Saudara Seibu" />
+                  <button type="button" class="stepper-btn" data-step="1" data-target="maternalSibling" aria-label="Tambah Saudara Seibu">+</button>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <button class="calculate-btn" id="calculate" type="button">Hitung Pembagian Waris</button>
+        </section>
+
+        <aside class="card results-card" aria-live="polite">
+          <div class="results-head">
+            <h2>Hasil Pembagian</h2>
+            <span class="results-status" id="results-status">Menunggu data</span>
+          </div>
+
+          <div class="summary-box">
+            <span class="summary-label">Total Harta Terhitung</span>
+            <strong class="summary-amount" id="estate-display">Rp 100.000.000</strong>
+          </div>
+
+          <div id="results-container">
+            <div class="empty-state">
+              <strong>Belum ada ahli waris</strong>
+              <div class="empty-state-text">Masukkan jumlah ahli waris lalu tekan tombol hitung.</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <footer class="disclaimer-card">
+        <div class="disclaimer-title">Ketentuan Penting Pembagian Waris</div>
+        <div>
+          Kalkulator ini menghitung bagian pokok berdasarkan kesepakatan umum (jumhur) ulama faraidh. Sebelum pembagian dilakukan, pastikan seluruh hak jenazah (biaya perawatan jenazah, pelunasan utang, dan wasiat yang sah hingga maksimal sepertiga harta) telah ditunaikan secara tuntas. Apabila terdapat sengketa, wasiat wajibah, atau perbedaan pandangan keluarga, konsultasikan kepada Pengadilan Agama atau lembaga fatwa resmi setempat.
+        </div>
+      </footer>
+    </main>
+
     <script type="module" src="./app.js"></script>
   </body>
 </html>
